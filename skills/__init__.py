@@ -1,124 +1,64 @@
 """
-Charles Skills - Pre-loaded at Startup
-=======================================
+CHARLES SKILLS - Complete Collection
+=====================================
 
-This module loads ALL skills immediately when imported.
-No lazy loading - everything available from the first millisecond.
-
-Usage:
-    import skills
-    # All 64+ skills are already loaded and ready
+Core + Jarvis Mode + Universal + Gap Skills
 """
 
-# === CORE SKILLS (7) - Always load first ===
-try:
-    from .coder import MasterCoder
-    from .researcher import MasterResearcher
-    from .orchestrator import MasterOrchestrator
-    from .knowledge import UniversalKnowledge
-    from .all_gas_no_brake import AllGasNoBrake
-    from .jarvis_mode import JarvisMode
-    from .be_water import BeWater
-    CORE_LOADED = True
-except Exception as e:
-    CORE_LOADED = False
-    print(f"Core skills load error: {e}")
+# === CORE SKILLS ===
+from .coder import MasterCoder
+from .researcher import MasterResearcher
+from .orchestrator import MasterOrchestrator
+from .knowledge import UniversalKnowledge
+from .all_gas_no_brake import AllGasNoBrake
+from .jarvis_mode import JarvisMode
+from .be_water import BeWater
 
-# === JARVIS MODE SKILLS ===
-# Handle optional dependencies gracefully
-def _safe_import(name, path):
-    """Safely import a skill, returning None if deps missing."""
-    try:
-        # Try to import the module
-        import importlib
-        module = importlib.import_module(f".jarvis_skills.{path}")
-        return getattr(module, name, None)
-    except Exception:
-        return None
+# === GAP SKILLS (NEW) ===
+from .gaps.learning_engine import LearningEngine
+from .gaps.self_improving_agent import SelfImprovingAgent
+from .gaps.reasoning import MultiHopReasoning, HypothesisGenerator, CounterArgument, DecisionMatrix
+from .gaps.business import StrategicPlanner, CompetitiveIntelligence, PerformanceOptimizer, DevOpsAutomation
+from .gaps.creative import SimulationRunner, ContentEngine, NegotiationStrategist
+from .gaps.research import TavilySearch, BrowserAutomation
+from .gaps.execution import GoalPlanner, AutonomousExecution, N8NWorkflowAutomation
+from .gaps.communication import CommunicationAdvisor, MeetingIntelligence
 
-# Try importing jarvis skills with graceful failure
-try:
-    from .jarvis_skills import telegram_master
-    TelegramMaster = getattr(telegram_master, 'TelegramMaster', None)
-except:
-    TelegramMaster = None
-
-# Create stub classes if imports fail (skills still work, just need deps installed)
-class StubSkill:
-    """Stub for skills that need dependencies installed."""
-    def __init__(self, deps_needed):
-        self.deps_needed = deps_needed
-    def __getattr__(self, name):
-        return lambda *args, **kwargs: {"error": f"Install dependencies: {self.deps_needed}"}
 
 # === PRE-LOADED INSTANCES ===
-# Core instances
-try:
-    coder = MasterCoder() if CORE_LOADED else StubSkill("none")
-    researcher = MasterResearcher() if CORE_LOADED else StubSkill("none")
-    orchestrator = MasterOrchestrator() if CORE_LOADED else StubSkill("none")
-    knowledge = UniversalKnowledge() if CORE_LOADED else StubSkill("none")
-    gas = AllGasNoBrake() if CORE_LOADED else StubSkill("none")
-    jarvis = JarvisMode() if CORE_LOADED else StubSkill("none")
-    water = BeWater() if CORE_LOADED else StubSkill("none")
-except:
-    coder = researcher = orchestrator = knowledge = gas = jarvis = water = StubSkill("none")
+coder = MasterCoder()
+researcher = MasterResearcher()
+orchestrator = MasterOrchestrator()
+knowledge = UniversalKnowledge()
+gas = AllGasNoBrake()
+jarvis = JarvisMode()
+water = BeWater()
+
+# Gap skills
+learning_engine = LearningEngine()
+self_improving = SelfImprovingAgent()
+multi_hop = MultiHopReasoning()
+decision_matrix = DecisionMatrix()
+strategic_planner = StrategicPlanner()
+performance_optimizer = PerformanceOptimizer()
+content_engine = ContentEngine()
+tavily = TavilySearch()
+browser = BrowserAutomation()
+goal_planner = GoalPlanner()
+autonomous = AutonomousExecution()
+n8n = N8NWorkflowAutomation()
+meeting_intel = MeetingIntelligence()
 
 
-# === QUICK ACCESS ===
-# These work immediately after import skills
-
-def get_coder():
-    """Get the coder skill."""
-    return coder
-
-def get_researcher():
-    """Get the researcher skill."""
-    return researcher
-
-def get_orchestrator():
-    """Get the orchestrator skill."""
-    return orchestrator
-
-def get_knowledge():
-    """Get the knowledge skill."""
-    return knowledge
-
-def get_gas():
-    """Get the All Gas No Brake skill."""
-    return gas
-
-def get_jarvis():
-    """Get the Jarvis Mode skill."""
-    return jarvis
-
-def get_water():
-    """Get the Be Water skill."""
-    return water
-
-
-# === EXPORTS ===
 __all__ = [
-    # Core classes
+    # Core
     "MasterCoder", "MasterResearcher", "MasterOrchestrator", "UniversalKnowledge",
     "AllGasNoBrake", "JarvisMode", "BeWater",
-    # Pre-loaded instances
+    # Core instances
     "coder", "researcher", "orchestrator", "knowledge", "gas", "jarvis", "water",
-    # Quick access
-    "get_coder", "get_researcher", "get_orchestrator", "get_knowledge",
-    "get_gas", "get_jarvis", "get_water",
+    # Gap skills
+    "LearningEngine", "SelfImprovingAgent", "MultiHopReasoning", "DecisionMatrix",
+    "StrategicPlanner", "PerformanceOptimizer", "ContentEngine", "TavilySearch",
+    "BrowserAutomation", "GoalPlanner", "AutonomousExecution", "N8NWorkflowAutomation",
+    "MeetingIntelligence",
 ]
-
-# === STARTUP ===
-# Import this to auto-load everything:
-#     from skills import startup
-#     # OR import skills (core loaded)
-
-# === READY ===
-# After import skills:
-#     skills.coder.write_code(...)
-#     skills.research.research(...)
-#     skills.orchestrator.create_task(...)
-#     skills.water.adapt_to(...)
-#     skills.gas.should_execute(...)
-#     skills.jarvis.get_autonomy_level()...
