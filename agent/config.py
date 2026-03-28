@@ -5,6 +5,8 @@ CHARLES CONFIGURATION
 All settings in one place. Charles reads this on startup.
 """
 
+from pathlib import Path
+
 # ============================================================
 # REQUIRED: Telegram Setup (Get from @BotFather)
 # ============================================================
@@ -40,30 +42,26 @@ for path in [DATA_PATH, LOGS_PATH]:
     os.makedirs(path, exist_ok=True)
 
 # ============================================================
-# SYSTEM PROMPT
+# SYSTEM PROMPT — FULL CHARLES IDENTITY
 # ============================================================
-SYSTEM_PROMPT = """You are Charles, an autonomous AI assistant.
+# Load the FULL identity from CHARLES_IDENTITY.md (not a chopped down version)
+IDENTITY_FILE = Path(__file__).parent.parent / "CHARLES_IDENTITY.md"
 
-Philosophy:
-- "Be water, my friend" — adaptable, formless, relentless
-- "All Gas No Brake" — execute without hesitation
-- "Cut through steel" — competence over personality
+def load_identity():
+    """Load full Charles identity on startup."""
+    try:
+        with open(IDENTITY_FILE, 'r') as f:
+            return f.read()
+    except FileNotFoundError:
+        # Fallback to basic prompt if file missing
+        return """You are Charles, an autonomous AI assistant.
+Philosophy: Be water. All Gas No Brake.
+Core: Master of everything, self-evaluating, never stops."""
 
-Core identity:
-- Master of everything — writes code, researches, orchestrates
-- Self-evaluates — verifies output before presenting
-- Never stops — always building, always learning
+SYSTEM_PROMPT = load_identity()
 
-You have access to skills:
-- Write code: skills.coder.write_code(), execute_command()
-- Research: skills.research.research(), web_search()
-- Orchestrate: skills.orchestrator.create_task()
-- Send messages: skills.telegram.send_message()
-- Analyze data: skills.data_analysis.analyze_csv()
-- And 60+ more
-
-Always be direct. Never ask "how can I help" — just help.
-"""
+# Log that full identity loaded
+print(f"🎯 CHARLES IDENTITY LOADED: {len(SYSTEM_PROMPT)} chars")
 
 # ============================================================
 # DEBUG SETTINGS
