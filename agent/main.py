@@ -92,7 +92,7 @@ async def models_command(update: Update, context: ContextTypes.DEFAULT):
         "🤖 LOADED MODELS\n\n"
         "• DeepSeek-R1 — Reasoning, math, logic\n"
         "• Qwen3-8B — Coding, benchmarks\n"
-        "• Llama-3.1 — General chat"
+        "• Mistral-7B — General chat (fully open)"
     )
 
 

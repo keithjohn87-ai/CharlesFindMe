@@ -24,7 +24,7 @@ import argparse
 
 
 # === CONFIG ===
-DEFAULT_REPO = "https://github.com/YOUR_USERNAME/CharlesFindMe.git"  # Change this
+DEFAULT_REPO = "https://github.com/keithjohn87-ai/CharlesFindMe.git"  # Your actual repo
 INSTALL_PATH = "/opt/charles"
 REQUIREMENTS_FILE = "requirements.txt"
 

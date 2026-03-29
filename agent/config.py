@@ -21,12 +21,16 @@ VLLM_BASE_URL = "http://localhost:8000/v1"
 VLLM_API_KEY = "EMPTY"  # Local vLLM no auth needed
 
 # Model names (as recognized by vLLM)
+# IMPORTANT: Load with Q5 quantization for best quality
 MODEL_DEEPSEEK = "deepseek-ai/DeepSeek-R1-7B"    # Reasoning, math, logic
 MODEL_QWEN = "Qwen/Qwen3-8B"                      # Coding, benchmarks
-MODEL_LLAMA = "meta-llama/Llama-3.1-8B-Instruct-Q4_K_M"  # General chat
+MODEL_MISTRAL = "mistralai/Mistral-7B-Instruct-v0.2"  # General chat - fully open
+
+# Quantization (DO NOT CHANGE - Q5 is best quality that fits)
+VLLM_QUANTIZATION = "Q5_K_M"  # 5-bit quantization - best quality fitting on RTX 4000
 
 # Default model
-DEFAULT_MODEL = MODEL_DEEPSEEK
+DEFAULT_MODEL = MODEL_MISTRAL
 
 # ============================================================
 # PATHS
